@@ -1,22 +1,51 @@
 // Main JavaScript functionality
 
+// Add this to your existing main.js
+document.addEventListener('DOMContentLoaded', function () {
+  initializeFAQ();
+  initializeNavigation();
+  initializeScrollEffects();
+  initializeAnalytics();
+  
+  // Check if we're in an iframe
+  checkIframeStatus();
+});
+
 function checkIframeStatus() {
-  if (window.self !== window.top) {
-    console.log('Page is embedded in an iframe');
-    // You could send this info to your analytics
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'iframe_load', {
-        event_category: 'embedding',
-        event_label: 'survey_platform'
-      });
-    }
-  } else {
-    console.log('Page is not in an iframe');
+  const isInIframe = window.self !== window.top;
+  
+  if (isInIframe) {
+    console.log('Page loaded in iframe - implementing fallback tracking');
+    // Set a flag for iframe tracking
+    window.isEmbedded = true;
+    
+    // Track iframe load
+    trackEvent('iframe_load', {
+      event_category: 'embedding',
+      event_label: 'survey_platform',
+      custom_parameter_1: 'research_survey'
+    });
   }
 }
 
-// Call this when the page loads
-document.addEventListener('DOMContentLoaded', checkIframeStatus);
+// Enhanced tracking function
+function trackEvent(eventName, eventData = {}) {
+  // Try Google Analytics first
+  if (typeof gtag !== 'undefined') {
+    try {
+      gtag('event', eventName, eventData);
+      console.log('GA event tracked:', eventName, eventData);
+    } catch (error) {
+      console.log('GA tracking failed:', error);
+      // Fallback to alternative tracking
+      trackAlternative(eventName, eventData);
+    }
+  } else {
+    console.log('gtag not available, using fallback tracking');
+    trackAlternative(eventName, eventData);
+  }
+}
+
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function () {
