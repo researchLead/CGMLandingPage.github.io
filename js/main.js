@@ -28,6 +28,21 @@ function checkIframeStatus() {
   }
 }
 
+function debugGA() {
+  // Check if GA is loaded
+  console.log('GA loaded:', typeof gtag !== 'undefined');
+  console.log('GA config:', window.dataLayer);
+  
+  // Check for GA network requests
+  console.log('Check Network tab for requests to:');
+  console.log('- google-analytics.com');
+  console.log('- googletagmanager.com');
+  console.log('- collect?');
+}
+
+// Call this after a few seconds
+setTimeout(debugGA, 3000);
+
 // FAQ Functionality
 function initializeFAQ() {
   const faqQuestions = document.querySelectorAll('.faq-question');
