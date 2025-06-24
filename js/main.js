@@ -42,6 +42,53 @@ function debugGA() {
   console.log('- collect?');
 }
 
+// Generate a client ID for fallback tracking
+function generateClientId() {
+  return Date.now() + '.' + Math.random().toString(36).substring(2);
+}
+
+// Alternative tracking using Google Analytics Measurement Protocol
+function trackAlternative(eventName, eventData) {
+  const measurementId = 'G-CZLXNTCELK'; // Your GA measurement ID
+  
+  // For now, we'll use a basic implementation without API secret
+  // In production, you'd want to set up the Measurement Protocol properly
+  const payload = {
+    client_id: generateClientId(),
+    events: [{
+      name: eventName,
+      parameters: {
+        ...eventData,
+        page_location: window.location.href,
+        page_referrer: document.referrer || '',
+        engagement_time_msec: '100',
+        is_embedded: window.isEmbedded || false
+      }
+    }]
+  };
+  
+  // Log the fallback attempt
+  console.log('Using fallback tracking for:', eventName, payload);
+  
+  // Store in localStorage as backup
+  try {
+    const storedEvents = JSON.parse(localStorage.getItem('ga_fallback_events') || '[]');
+    storedEvents.push({
+      timestamp: new Date().toISOString(),
+      event: eventName,
+      data: eventData,
+      payload: payload
+    });
+    localStorage.setItem('ga_fallback_events', JSON.stringify(storedEvents));
+    console.log('Event stored in localStorage for later analysis');
+  } catch (error) {
+    console.log('localStorage not available');
+  }
+  
+  // You can also send to your own server here if you set one up later
+  // fetch('your-tracking-endpoint', { method: 'POST', body: JSON.stringify(payload) });
+}
+
 // FAQ Functionality
 function initializeFAQ() {
   const faqQuestions = document.querySelectorAll('.faq-question');
@@ -210,13 +257,11 @@ function initializeAnalytics() {
   const ctaButtons = document.querySelectorAll('.cta-button, .nav-cta');
   ctaButtons.forEach(function (button, index) {
     button.addEventListener('click', function () {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'cta_click', {
-          event_category: 'engagement',
-          event_label: this.textContent.trim(),
-          button_location: this.closest('section')?.className || 'navigation',
-        });
-      }
+      trackEvent('cta_click', {
+        event_category: 'engagement',
+        event_label: this.textContent.trim(),
+        button_location: this.closest('section')?.className || 'navigation',
+      });
     });
   });
 
@@ -224,12 +269,10 @@ function initializeAnalytics() {
   const formSubmitButton = document.querySelector('button[type="submit"]');
   if (formSubmitButton) {
     formSubmitButton.addEventListener('click', function () {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'form_submit_attempt', {
-          event_category: 'conversion',
-          event_label: 'insurance_check',
-        });
-      }
+      trackEvent('form_submit_attempt', {
+        event_category: 'conversion',
+        event_label: 'insurance_check',
+      });
     });
   }
 
@@ -237,12 +280,10 @@ function initializeAnalytics() {
   const faqQuestions = document.querySelectorAll('.faq-question');
   faqQuestions.forEach(function (question) {
     question.addEventListener('click', function () {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'faq_click', {
-          event_category: 'engagement',
-          event_label: this.textContent.trim(),
-        });
-      }
+      trackEvent('faq_click', {
+        event_category: 'engagement',
+        event_label: this.textContent.trim(),
+      });
     });
   });
 }
