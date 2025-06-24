@@ -1,6 +1,6 @@
 // Main JavaScript functionality
 
-// Add this to your existing main.js
+// DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function () {
   initializeFAQ();
   initializeNavigation();
@@ -27,32 +27,6 @@ function checkIframeStatus() {
     });
   }
 }
-
-// Enhanced tracking function
-function trackEvent(eventName, eventData = {}) {
-  // Try Google Analytics first
-  if (typeof gtag !== 'undefined') {
-    try {
-      gtag('event', eventName, eventData);
-      console.log('GA event tracked:', eventName, eventData);
-    } catch (error) {
-      console.log('GA tracking failed:', error);
-      // Fallback to alternative tracking
-      trackAlternative(eventName, eventData);
-    }
-  } else {
-    console.log('gtag not available, using fallback tracking');
-    trackAlternative(eventName, eventData);
-  }
-}
-
-
-// DOM Content Loaded
-document.addEventListener('DOMContentLoaded', function () {
-  initializeFAQ();
-  initializeNavigation();
-  initializeScrollEffects();
-});
 
 // FAQ Functionality
 function initializeFAQ() {
@@ -188,10 +162,22 @@ function handleFormSubmission(formId, callback) {
   }
 }
 
-// Analytics tracking (placeholder)
+// Enhanced tracking function
 function trackEvent(eventName, eventData = {}) {
-  // Add your analytics tracking code here
-  console.log('Event tracked:', eventName, eventData);
+  // Try Google Analytics first
+  if (typeof gtag !== 'undefined') {
+    try {
+      gtag('event', eventName, eventData);
+      console.log('GA event tracked:', eventName, eventData);
+    } catch (error) {
+      console.log('GA tracking failed:', error);
+      // Fallback to alternative tracking
+      trackAlternative(eventName, eventData);
+    }
+  } else {
+    console.log('gtag not available, using fallback tracking');
+    trackAlternative(eventName, eventData);
+  }
 }
 
 // Export functions if using modules
@@ -203,16 +189,6 @@ if (typeof module !== 'undefined' && module.exports) {
     trackEvent,
   };
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  // Your existing code...
-  initializeFAQ();
-  initializeNavigation();
-  initializeScrollEffects();
-
-  // NEW: Add button click tracking
-  initializeAnalytics();
-});
 
 // NEW FUNCTION: Track button clicks
 function initializeAnalytics() {
