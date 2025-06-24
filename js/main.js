@@ -1,5 +1,23 @@
 // Main JavaScript functionality
 
+function checkIframeStatus() {
+  if (window.self !== window.top) {
+    console.log('Page is embedded in an iframe');
+    // You could send this info to your analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'iframe_load', {
+        event_category: 'embedding',
+        event_label: 'survey_platform'
+      });
+    }
+  } else {
+    console.log('Page is not in an iframe');
+  }
+}
+
+// Call this when the page loads
+document.addEventListener('DOMContentLoaded', checkIframeStatus);
+
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function () {
   initializeFAQ();
