@@ -1,5 +1,4 @@
 // Main JavaScript functionality
-
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function () {
   initializeFAQ();
@@ -9,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
   
   // Check if we're in an iframe
   checkIframeStatus();
+  
+  // Call debugGA after page loads
+  setTimeout(debugGA, 3000);
 });
 
 function checkIframeStatus() {
@@ -39,9 +41,6 @@ function debugGA() {
   console.log('- googletagmanager.com');
   console.log('- collect?');
 }
-
-// Call this after a few seconds
-setTimeout(debugGA, 3000);
 
 // FAQ Functionality
 function initializeFAQ() {
