@@ -43,7 +43,7 @@
           <li><a href="#testimonials">Reviews</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
-        <a href="#signup" class="nav-cta">Get Early Access</a>
+        <a href="#" class="nav-cta">Get Early Access</a>
       </div>
     </nav>
     <!-- Hero Section -->
@@ -59,14 +59,12 @@
             </p>
 
             <!-- Call to Action -->
-            <div class="hero-cta">
-              <div class="cta-buttons">
-                <a href="#how-it-works" class="cta-button">See How It Works</a>
-                <a href="#testimonials" class="cta-secondary"
-                  >Read Success Stories</a
-                >
-              </div>
-            </div>
+<div class="hero-cta">
+  <div class="cta-buttons">
+    <a href="#signup" class="cta-button">Check My Insurance Coverage</a>
+    <a href="#" class="cta-secondary">Join Waitlist</a>
+  </div>
+</div>
           </div>
           <div class="hero-visual">
             <img
@@ -237,98 +235,6 @@
       </div>
     </section>
 
-    <!-- Technology Section -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>The Technology</h2>
-          <p>
-            Medical-grade hardware meets personalized technology for seamless diabetes
-            management
-          </p>
-        </div>
-
-        <!-- App Interface Showcase -->
-        <div class="app-screens-alt">
-          <div class="app-card">
-            <img src="images/image2.png" alt="Smart meal recommendations" />
-            <h4>Smart Meal Recommendations</h4>
-            <p>
-              Get personalized meal suggestions based on your unique glucose
-              patterns and preferences.
-            </p>
-          </div>
-          <div class="app-card">
-            <img src="images/image1.png" alt="Real-time glucose monitoring" />
-            <h4>Real-time Glucose Monitoring</h4>
-            <p>
-              See your glucose levels update continuously with actionable
-              insights and recommendations.
-            </p>
-          </div>
-          <div class="app-card">
-            <img src="images/image3.png" alt="Continuous glucose trends" />
-            <h4>Smart Food Insights</h4>
-            <p>
-              Get personalized meal recommendations, timing tips, and actionable insights based on how your body responds to different foods.
-            </p>
-            
-          </div>
-        </div>
-
-        <div class="tech-grid">
-          <div class="tech-content">
-            <h3>Simple, Seamless Integration</h3>
-            <ul class="tech-features">
-              <li>
-                <strong>Medical-grade CGM hardware</strong> for accurate,
-                continuous glucose monitoring with FDA approval
-              </li>
-              <li>
-                <strong>Intelligent learning system</strong> that learns your unique
-                patterns and provides personalized insights
-              </li>
-              <li>
-                <strong>Comfortable and discreet</strong> design you can wear
-                confidently during any activity
-              </li>
-              <li>
-                <strong>Intuitive mobile app</strong> designed for everyday use
-                with simple, clear interfaces
-              </li>
-              <li>
-                <strong>Real-time synchronization</strong> between sensor data
-                and meal recognition for instant insights
-              </li>
-            </ul>
-          </div>
-          <div class="tech-visual">
-            <div class="tech-highlight">
-              <h4>See Your Data Come to Life</h4>
-              <p>
-                Watch how your glucose responds to meals in real-time, with
-                personalized recommendations that actually work for your body.
-              </p>
-              <div class="tech-stats">
-                <div class="stat">
-                  <span class="stat-number">90%</span>
-                  <span class="stat-label">Accuracy</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-number">24/7</span>
-                  <span class="stat-label">Monitoring</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-number">Real-time</span>
-                  <span class="stat-label">Insights</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Social Proof Section -->
     <section class="section testimonials" id="testimonials">
       <div class="container">
@@ -442,117 +348,95 @@
     </section>
 
     <!-- Final CTA Section -->
-    <section class="section final-cta">
-          <h2>Ready to Transform Your Diabetes Management?</h2>
-          <p>
-            Check if your insurance covers our CGM system and join the waitlist for early access.
-          </p>
+<section class="section final-cta" id="signup">
+  <h2>Ready to Transform Your Diabetes Management?</h2>
+  <p>
+    Check if your insurance covers our CGM system and join the waitlist for early access.
+  </p>
 
-        <!-- Improved Interest Form -->
-        <div class="final-cta-form">
-            <form netlify name="final-interest" class="interest-form-simple">
-              <div class="inline-form">
-                <select name="insurance_provider" required>
-                  <option value="">What's your health insurance?</option>
-                  <option value="unitedhealthgroup">UnitedHealth Group</option>
-                  <option value="elevance">Elevance Health (Anthem)</option>
-                  <option value="centene">Centene Corporation</option>
-                  <option value="cigna">Cigna</option>
-                  <option value="humana">Humana</option>
-                  <option value="aetna">CVS Health (Aetna)</option>
-                  <option value="kaiser">Kaiser Permanente</option>
-                  <option value="bcbs">Blue Cross Blue Shield</option>
-                  <option value="medicare">Medicare</option>
-                  <option value="medicaid">Medicaid</option>
-                  <option value="other">Other/Not Sure</option>
-                </select>
-          
-                <input
-                  type="text"
-                  name="text"
-                  placeholder="Type 'Interested'"
-                  required
-                />
-          
-                <button type="submit" class="cta-button primary-white">
-                  Check Coverage
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+  <!-- Improved Interest Form -->
+  <div class="final-cta-form">
+    <form netlify name="final-interest" class="interest-form-simple">
+      <div class="inline-form">
+        <select name="insurance_provider" required>
+          <option value="">What's your health insurance?</option>
+          <option value="unitedhealthgroup">UnitedHealth Group</option>
+          <option value="elevance">Elevance Health (Anthem)</option>
+          <option value="centene">Centene Corporation</option>
+          <option value="cigna">Cigna</option>
+          <option value="humana">Humana</option>
+          <option value="aetna">CVS Health (Aetna)</option>
+          <option value="kaiser">Kaiser Permanente</option>
+          <option value="bcbs">Blue Cross Blue Shield</option>
+          <option value="medicare">Medicare</option>
+          <option value="medicaid">Medicaid</option>
+          <option value="other">Other/Not Sure</option>
+        </select>
+  
+        <input
+          type="text"
+          name="text"
+          placeholder="Type 'Interested'"
+          required
+        />
+  
+        <button type="submit" class="cta-button primary-white">
+          Check Coverage
+        </button>
       </div>
-    </section>
+    </form>
+  </div>
+</section>
 
     <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-section footer-brand">
-            <h4>GlucoSense</h4>
-            <p>
-              Transforming diabetes management through intelligent automation
-              and continuous glucose monitoring.
-            </p>
-            <div class="footer-social">
-              <a href="#" class="social-link">LinkedIn</a>
-              <a href="#" class="social-link">Twitter</a>
-              <a href="#" class="social-link">Facebook</a>
-            </div>
-          </div>
-
-          <div class="footer-section">
-            <h4>Product</h4>
-            <ul class="footer-links">
-              <li><a href="#features">Features</a></li>
-              <li><a href="#how-it-works">How It Works</a></li>
-              <li><a href="#pricing">Pricing</a></li>
-              <li><a href="#api">API</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>Support</h4>
-            <ul class="footer-links">
-              <li><a href="#help">Help Center</a></li>
-              <li><a href="#contact">Contact Us</a></li>
-              <li><a href="#faq">FAQ</a></li>
-              <li><a href="#community">Community</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section footer-contact">
-            <h4>Contact</h4>
-            <div class="contact-info">
-              <div class="contact-item">
-                <span class="contact-label">Email:</span>
-                <a href="mailto:support@glucosense.com"
-                  >support@glucosense.com</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="contact-label">Phone:</span>
-                <a href="tel:1-800-123-4567">(800) 123-4567</a>
-              </div>
-              <div class="contact-note">
-                Available 24/7 for urgent medical questions
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <div class="footer-bottom-content">
-            <p>&copy; 2025 GlucoSense. All rights reserved.</p>
-            <div class="footer-legal">
-              <a href="#privacy">Privacy Policy</a>
-              <span class="separator">|</span>
-              <a href="#terms">Terms of Service</a>
-            </div>
-          </div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section footer-brand">
+        <h4>GlucoSense</h4>
+        <p>
+          Transforming diabetes management through intelligent automation
+          and continuous glucose monitoring.
+        </p>
+        <div class="footer-social">
+          <a href="#" class="social-link">LinkedIn</a>
+          <a href="#" class="social-link">Twitter</a>
+          <a href="#" class="social-link">Facebook</a>
         </div>
       </div>
-    </footer>
+
+      <div class="footer-section">
+        <h4>Product</h4>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Research & Evidence</h4>
+        <ul class="footer-links">
+          <li><a href="#cgm-research">CGM Clinical Studies</a></li>
+          <li><a href="#ai-accuracy">AI Recognition Research</a></li>
+          <li><a href="#diabetes-outcomes">Patient Outcome Data</a></li>
+          <li><a href="#peer-reviewed">Peer-Reviewed Papers</a></li>
+          <li><a href="#white-papers">Technology White Papers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Learn More</h4>
+        <ul class="footer-links">
+          <li><a href="#diabetes-guide">Type 2 Diabetes Guide</a></li>
+          <li><a href="#cgm-benefits">CGM Benefits Explained</a></li>
+          <li><a href="#food-glucose">Food & Glucose Response</a></li>
+          <li><a href="#clinical-evidence">Clinical Evidence Library</a></li>
+          <li><a href="#healthcare-providers">For Healthcare Providers</a></li>
+        </ul>
+      </div>
+</footer>
 
     <!-- JavaScript -->
     <script src="js/main.js"></script>

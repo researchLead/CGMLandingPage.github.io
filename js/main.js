@@ -5,27 +5,27 @@ document.addEventListener('DOMContentLoaded', function () {
   initializeNavigation();
   initializeScrollEffects();
   initializeAnalytics();
-  
+
   // Check if we're in an iframe
   checkIframeStatus();
-  
+
   // Call debugGA after page loads
   setTimeout(debugGA, 3000);
 });
 
 function checkIframeStatus() {
   const isInIframe = window.self !== window.top;
-  
+
   if (isInIframe) {
     console.log('Page loaded in iframe - implementing fallback tracking');
     // Set a flag for iframe tracking
     window.isEmbedded = true;
-    
+
     // Track iframe load
     trackEvent('iframe_load', {
       event_category: 'embedding',
       event_label: 'survey_platform',
-      custom_parameter_1: 'research_survey'
+      custom_parameter_1: 'research_survey',
     });
   }
 }
@@ -34,7 +34,7 @@ function debugGA() {
   // Check if GA is loaded
   console.log('GA loaded:', typeof gtag !== 'undefined');
   console.log('GA config:', window.dataLayer);
-  
+
   // Check for GA network requests
   console.log('Check Network tab for requests to:');
   console.log('- google-analytics.com');
@@ -50,41 +50,45 @@ function generateClientId() {
 // Alternative tracking using Google Analytics Measurement Protocol
 function trackAlternative(eventName, eventData) {
   const measurementId = 'G-CZLXNTCELK'; // Your GA measurement ID
-  
+
   // For now, we'll use a basic implementation without API secret
   // In production, you'd want to set up the Measurement Protocol properly
   const payload = {
     client_id: generateClientId(),
-    events: [{
-      name: eventName,
-      parameters: {
-        ...eventData,
-        page_location: window.location.href,
-        page_referrer: document.referrer || '',
-        engagement_time_msec: '100',
-        is_embedded: window.isEmbedded || false
-      }
-    }]
+    events: [
+      {
+        name: eventName,
+        parameters: {
+          ...eventData,
+          page_location: window.location.href,
+          page_referrer: document.referrer || '',
+          engagement_time_msec: '100',
+          is_embedded: window.isEmbedded || false,
+        },
+      },
+    ],
   };
-  
+
   // Log the fallback attempt
   console.log('Using fallback tracking for:', eventName, payload);
-  
+
   // Store in localStorage as backup
   try {
-    const storedEvents = JSON.parse(localStorage.getItem('ga_fallback_events') || '[]');
+    const storedEvents = JSON.parse(
+      localStorage.getItem('ga_fallback_events') || '[]'
+    );
     storedEvents.push({
       timestamp: new Date().toISOString(),
       event: eventName,
       data: eventData,
-      payload: payload
+      payload: payload,
     });
     localStorage.setItem('ga_fallback_events', JSON.stringify(storedEvents));
     console.log('Event stored in localStorage for later analysis');
   } catch (error) {
     console.log('localStorage not available');
   }
-  
+
   // You can also send to your own server here if you set one up later
   // fetch('your-tracking-endpoint', { method: 'POST', body: JSON.stringify(payload) });
 }
@@ -251,10 +255,110 @@ if (typeof module !== 'undefined' && module.exports) {
   };
 }
 
-// NEW FUNCTION: Track button clicks
+// ENHANCED ANALYTICS FUNCTION with all the new tracking
 function initializeAnalytics() {
-  // Track all CTA buttons
-  const ctaButtons = document.querySelectorAll('.cta-button, .nav-cta');
+  // 1. Track Navigation Links
+  const navLinks = document.querySelectorAll('.nav-links a');
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      trackEvent('navigation_click', {
+        event_category: 'navigation',
+        event_label: this.textContent.trim(),
+        link_url: this.getAttribute('href'),
+        location: 'header_nav',
+      });
+    });
+  });
+
+  // 2. Track Navigation CTA (Get Early Access)
+  const navCTA = document.querySelector('.nav-cta');
+  if (navCTA) {
+    navCTA.addEventListener('click', function () {
+      trackEvent('nav_cta_click', {
+        event_category: 'conversion',
+        event_label: this.textContent.trim(),
+        location: 'header_nav',
+      });
+    });
+  }
+
+  // 3. Track Hero CTA Buttons
+  const heroCTAButtons = document.querySelectorAll(
+    '.hero-cta .cta-button, .hero-cta .cta-secondary'
+  );
+  heroCTAButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      const isPrimary = this.classList.contains('cta-button');
+      trackEvent('hero_cta_click', {
+        event_category: 'conversion',
+        event_label: this.textContent.trim(),
+        button_type: isPrimary ? 'primary' : 'secondary',
+        location: 'hero_section',
+      });
+    });
+  });
+
+  // 4. Track Footer Social Links
+  const socialLinks = document.querySelectorAll('.footer-social .social-link');
+  socialLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      trackEvent('social_click', {
+        event_category: 'social',
+        event_label: this.textContent.trim(),
+        location: 'footer',
+      });
+    });
+  });
+
+  // 5. Track Footer Product Links
+  const productLinks = document.querySelectorAll(
+    '.footer-section:nth-child(2) .footer-links a'
+  );
+  productLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      trackEvent('footer_product_click', {
+        event_category: 'footer_navigation',
+        event_label: this.textContent.trim(),
+        section: 'product',
+        link_url: this.getAttribute('href'),
+      });
+    });
+  });
+
+  // 6. Track Footer Research & Evidence Links
+  const researchLinks = document.querySelectorAll(
+    '.footer-section:nth-child(3) .footer-links a'
+  );
+  researchLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      trackEvent('footer_research_click', {
+        event_category: 'footer_navigation',
+        event_label: this.textContent.trim(),
+        section: 'research_evidence',
+        link_url: this.getAttribute('href'),
+      });
+    });
+  });
+
+  // 7. Track Footer Learn More Links
+  const learnMoreLinks = document.querySelectorAll(
+    '.footer-section:nth-child(4) .footer-links a'
+  );
+  learnMoreLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      trackEvent('footer_learn_more_click', {
+        event_category: 'footer_navigation',
+        event_label: this.textContent.trim(),
+        section: 'learn_more',
+        link_url: this.getAttribute('href'),
+      });
+    });
+  });
+
+  // 8. Track all existing CTA buttons (your original code)
+  const ctaButtons = document.querySelectorAll(
+    '.cta-button:not(.hero-cta .cta-button), .nav-cta'
+  );
   ctaButtons.forEach(function (button, index) {
     button.addEventListener('click', function () {
       trackEvent('cta_click', {
@@ -265,7 +369,7 @@ function initializeAnalytics() {
     });
   });
 
-  // Track form submission attempts
+  // 9. Track form submission attempts (your original code)
   const formSubmitButton = document.querySelector('button[type="submit"]');
   if (formSubmitButton) {
     formSubmitButton.addEventListener('click', function () {
@@ -276,7 +380,7 @@ function initializeAnalytics() {
     });
   }
 
-  // Track FAQ interactions
+  // 10. Track FAQ interactions (your original code)
   const faqQuestions = document.querySelectorAll('.faq-question');
   faqQuestions.forEach(function (question) {
     question.addEventListener('click', function () {
